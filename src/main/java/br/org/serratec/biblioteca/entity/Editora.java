@@ -24,4 +24,28 @@ public class Editora {
 
     @OneToMany(mappedBy = "editora")
     private Set<Livro> livros;
+
+    public int getCodigoEditora() {
+        return codigoEditora;
+    }
+
+    public void setCodigoEditora(int codigoEditora) {
+        this.codigoEditora = codigoEditora;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public Set<Livro> getLivros() {
+        return livros;
+    }
+
+    public void setLivros(Set<Livro> livros) {
+        this.livros = livros;
+    }
 }

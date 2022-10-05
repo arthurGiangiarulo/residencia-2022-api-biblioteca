@@ -44,5 +44,85 @@ public class Aluno {
     private String cidade;
 
     @OneToMany(mappedBy = "aluno")
-    private Set<Emprestimo> emprestimos;
+    private Set<Emprestimo> emprestimosDoAluno;
+
+    public int getNumeroMatriculaAluno() {
+        return numeroMatriculaAluno;
+    }
+
+    public void setNumeroMatriculaAluno(int numeroMatriculaAluno) {
+        this.numeroMatriculaAluno = numeroMatriculaAluno;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public Instant getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(Instant dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getLogradouro() {
+        return logradouro;
+    }
+
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
+    }
+
+    public String getNumeroLogradouro() {
+        return numeroLogradouro;
+    }
+
+    public void setNumeroLogradouro(String numeroLogradouro) {
+        this.numeroLogradouro = numeroLogradouro;
+    }
+
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public Set<Emprestimo> getEmprestimosDoAluno() {
+        return emprestimosDoAluno;
+    }
+
+    public void setEmprestimosDoAluno(Set<Emprestimo> emprestimosDoAluno) {
+        this.emprestimosDoAluno = emprestimosDoAluno;
+    }
 }

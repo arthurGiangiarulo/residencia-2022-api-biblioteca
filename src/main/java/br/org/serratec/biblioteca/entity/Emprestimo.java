@@ -37,4 +37,52 @@ public class Emprestimo {
     @OneToOne
     @JoinColumn(name = "codigolivro", referencedColumnName = "codigolivro")
     private Livro livro;
+
+    public int getCodigoemprestimo() {
+        return codigoemprestimo;
+    }
+
+    public void setCodigoemprestimo(int codigoemprestimo) {
+        this.codigoemprestimo = codigoemprestimo;
+    }
+
+    public Instant getDataEmprestimo() {
+        return dataEmprestimo;
+    }
+
+    public void setDataEmprestimo(Instant dataEmprestimo) {
+        this.dataEmprestimo = dataEmprestimo;
+    }
+
+    public Instant getDataEntrega() {
+        return dataEntrega;
+    }
+
+    public void setDataEntrega(Instant dataEntrega) {
+        this.dataEntrega = dataEntrega;
+    }
+
+    public BigDecimal getValorEmprestimo() {
+        return valorEmprestimo;
+    }
+
+    public void setValorEmprestimo(BigDecimal valorEmprestimo) {
+        this.valorEmprestimo = valorEmprestimo;
+    }
+
+    public Aluno getAluno() {
+        return aluno;
+    }
+
+    public void setAluno(Aluno aluno) {
+        this.aluno = aluno;
+    }
+
+    public Livro getLivro() {
+        return livro;
+    }
+
+    public void setLivro(Livro livro) {
+        this.livro = livro;
+    }
 }

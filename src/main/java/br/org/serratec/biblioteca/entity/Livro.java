@@ -40,4 +40,60 @@ public class Livro {
 
     @OneToOne(mappedBy = "livro")
     private Emprestimo emprestimoDoLivro;
+
+    public int getCodigoLivro() {
+        return codigoLivro;
+    }
+
+    public void setCodigoLivro(int codigoLivro) {
+        this.codigoLivro = codigoLivro;
+    }
+
+    public String getNomeLivro() {
+        return nomeLivro;
+    }
+
+    public void setNomeLivro(String nomeLivro) {
+        this.nomeLivro = nomeLivro;
+    }
+
+    public String getNomeAutor() {
+        return nomeAutor;
+    }
+
+    public void setNomeAutor(String nomeAutor) {
+        this.nomeAutor = nomeAutor;
+    }
+
+    public Instant getDataLancamento() {
+        return dataLancamento;
+    }
+
+    public void setDataLancamento(Instant dataLancamento) {
+        this.dataLancamento = dataLancamento;
+    }
+
+    public int getCodigoIsbn() {
+        return codigoIsbn;
+    }
+
+    public void setCodigoIsbn(int codigoIsbn) {
+        this.codigoIsbn = codigoIsbn;
+    }
+
+    public Editora getEditora() {
+        return editora;
+    }
+
+    public void setEditora(Editora editora) {
+        this.editora = editora;
+    }
+
+    public Emprestimo getEmprestimoDoLivro() {
+        return emprestimoDoLivro;
+    }
+
+    public void setEmprestimoDoLivro(Emprestimo emprestimoDoLivro) {
+        this.emprestimoDoLivro = emprestimoDoLivro;
+    }
 }
