@@ -125,4 +125,17 @@ public class Aluno {
     public void setEmprestimosDoAluno(Set<Emprestimo> emprestimosDoAluno) {
         this.emprestimosDoAluno = emprestimosDoAluno;
     }
+
+    public Aluno setAllAtributos(Aluno aluno){
+        this.setBairro(aluno.getBairro());
+        this.setCidade(aluno.getCidade());
+        this.setComplemento(aluno.getComplemento());
+        this.setCpf(aluno.getCpf());
+        this.setDataNascimento(aluno.getDataNascimento());
+        this.setEmprestimosDoAluno(aluno.getEmprestimosDoAluno());
+        this.setLogradouro(aluno.getLogradouro());
+        this.setNome(aluno.getNome());
+        this.setNumeroLogradouro(aluno.getNumeroLogradouro());
+        return this;
+    }
 }
