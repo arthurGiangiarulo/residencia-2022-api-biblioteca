@@ -96,4 +96,14 @@ public class Livro {
     public void setEmprestimoDoLivro(Emprestimo emprestimoDoLivro) {
         this.emprestimoDoLivro = emprestimoDoLivro;
     }
+
+    public Livro setAllAtributos(Livro livro){
+        this.setCodigoIsbn(livro.getCodigoIsbn());
+        this.setDataLancamento(livro.getDataLancamento());
+        this.setEditora(livro.getEditora());
+        this.setEmprestimoDoLivro(livro.getEmprestimoDoLivro());
+        this.setNomeAutor(livro.getNomeAutor());
+        this.setNomeLivro(livro.getNomeLivro());
+        return this;
+    }
 }

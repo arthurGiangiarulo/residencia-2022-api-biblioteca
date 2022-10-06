@@ -19,7 +19,7 @@ public class Emprestimo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "codigoemprestimo")
-    private int codigoemprestimo;
+    private int codigoEmprestimo;
     
     @Column(name = "dataemprestimo")
     private Instant dataEmprestimo;
@@ -38,12 +38,12 @@ public class Emprestimo {
     @JoinColumn(name = "codigolivro", referencedColumnName = "codigolivro")
     private Livro livro;
 
-    public int getCodigoemprestimo() {
-        return codigoemprestimo;
+    public int getCodigoEmprestimo() {
+        return codigoEmprestimo;
     }
 
-    public void setCodigoemprestimo(int codigoemprestimo) {
-        this.codigoemprestimo = codigoemprestimo;
+    public void setCodigoEmprestimo(int codigoEmprestimo) {
+        this.codigoEmprestimo = codigoEmprestimo;
     }
 
     public Instant getDataEmprestimo() {
@@ -84,5 +84,14 @@ public class Emprestimo {
 
     public void setLivro(Livro livro) {
         this.livro = livro;
+    }
+
+    public Emprestimo setAllAtributos(Emprestimo emprestimo){
+        this.setDataEmprestimo(emprestimo.getDataEmprestimo());
+        this.setDataEntrega(emprestimo.getDataEntrega());
+        this.setValorEmprestimo(emprestimo.getValorEmprestimo());
+        this.setAluno(emprestimo.getAluno());
+        this.setLivro(emprestimo.getLivro());
+        return this;
     }
 }

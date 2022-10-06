@@ -26,11 +26,12 @@ public class AlunoService {
         return alunoRepository.save(aluno); 
     }
 
-    public Aluno updateAluno2(Aluno aluno, int id){
+    public Aluno updateAluno(Aluno aluno, int id){
         Aluno alunoExistenteNoBanco = getAlunoById(id);
         alunoExistenteNoBanco.setAllAtributos(aluno);
         return alunoRepository.save(alunoExistenteNoBanco);
     }
+
     public Aluno deleteAluno(int id){
         alunoRepository.deleteById(id);
         return getAlunoById(id);
