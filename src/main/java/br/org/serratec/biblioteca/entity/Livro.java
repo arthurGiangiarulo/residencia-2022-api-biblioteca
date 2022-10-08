@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -38,62 +37,63 @@ public class Livro {
     @JoinColumn(name = "codigoeditora", referencedColumnName = "codigoeditora")
     private Editora editora;
 
-    @OneToOne(mappedBy = "livro")
-    private Emprestimo emprestimoDoLivro;
+    @OneToMany(mappedBy = "livro")
+    private Set<Emprestimo> emprestimoDoLivro;
 
+    
     public int getCodigoLivro() {
         return codigoLivro;
     }
-
+    
     public void setCodigoLivro(int codigoLivro) {
         this.codigoLivro = codigoLivro;
     }
-
+    
     public String getNomeLivro() {
         return nomeLivro;
     }
-
+    
     public void setNomeLivro(String nomeLivro) {
         this.nomeLivro = nomeLivro;
     }
-
+    
     public String getNomeAutor() {
         return nomeAutor;
     }
-
+    
     public void setNomeAutor(String nomeAutor) {
         this.nomeAutor = nomeAutor;
     }
-
+    
     public Instant getDataLancamento() {
         return dataLancamento;
     }
-
+    
     public void setDataLancamento(Instant dataLancamento) {
         this.dataLancamento = dataLancamento;
     }
-
+    
     public int getCodigoIsbn() {
         return codigoIsbn;
     }
-
+    
     public void setCodigoIsbn(int codigoIsbn) {
         this.codigoIsbn = codigoIsbn;
     }
-
+    
     public Editora getEditora() {
         return editora;
     }
-
+    
     public void setEditora(Editora editora) {
         this.editora = editora;
     }
-
-    public Emprestimo getEmprestimoDoLivro() {
+    
+    public Set<Emprestimo> getEmprestimoDoLivro() {
         return emprestimoDoLivro;
     }
 
-    public void setEmprestimoDoLivro(Emprestimo emprestimoDoLivro) {
+    public void setEmprestimoDoLivro(Set<Emprestimo> emprestimoDoLivro) {
         this.emprestimoDoLivro = emprestimoDoLivro;
     }
 
