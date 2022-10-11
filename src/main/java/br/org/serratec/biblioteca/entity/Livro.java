@@ -13,6 +13,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "codigoLivro")
 @Entity
 @Table(name = "livros")
 public class Livro {
@@ -33,10 +39,12 @@ public class Livro {
     @Column(name = "codigoisbn")
     private int codigoIsbn;
 
+    // @JsonBackReference(value="editora-back")
     @ManyToOne
     @JoinColumn(name = "codigoeditora", referencedColumnName = "codigoeditora")
     private Editora editora;
 
+    // @JsonManagedReference(value="livro-back")
     @OneToMany(mappedBy = "livro")
     private Set<Emprestimo> emprestimoDoLivro;
 

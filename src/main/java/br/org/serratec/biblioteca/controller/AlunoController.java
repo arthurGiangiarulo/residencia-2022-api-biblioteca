@@ -2,8 +2,6 @@ package br.org.serratec.biblioteca.controller;
 
 import java.util.List;
 
-import javax.net.ssl.HttpsURLConnection;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 
 import br.org.serratec.biblioteca.entity.Aluno;
 import br.org.serratec.biblioteca.service.AlunoService;

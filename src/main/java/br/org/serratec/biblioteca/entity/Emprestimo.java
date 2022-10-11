@@ -12,8 +12,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "codigoEmprestimo")
 @Entity 
-@Table(name = "editora")
+@Table(name = "emprestimo")
 public class Emprestimo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,10 +34,12 @@ public class Emprestimo {
     @Column(name = "valoremprestimo")
     private BigDecimal valorEmprestimo;
 
+    // @JsonBackReference(value="aluno-back")
     @ManyToOne
     @JoinColumn(name = "numeromatriculaaluno", referencedColumnName = "numeromatriculaaluno")
     private Aluno aluno;
     
+    // @JsonBackReference(value="livro-back")
     @ManyToOne
     @JoinColumn(name = "codigolivro", referencedColumnName = "codigolivro")
     private Livro livro;
