@@ -14,6 +14,8 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+import br.org.serratec.biblioteca.dto.EditoraDTO;
+
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "codigoEditora")
 @Entity 
 @Table(name = "editora")
@@ -56,6 +58,11 @@ public class Editora {
 
     public Editora setAllAtributos(Editora editora){
         this.setNome(editora.getNome());
+        return this;
+    }
+
+    public Editora setAllAtributos(EditoraDTO editoraDTO){
+        this.setNome(editoraDTO.getNome());
         return this;
     }
 }

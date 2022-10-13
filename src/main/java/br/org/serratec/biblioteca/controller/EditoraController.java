@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.org.serratec.biblioteca.dto.EditoraDTO;
 import br.org.serratec.biblioteca.entity.Editora;
 import br.org.serratec.biblioteca.service.EditoraService;
 
@@ -28,6 +29,11 @@ public class EditoraController {
         return new ResponseEntity<>(editoraService.getAllEditoras(), HttpStatus.OK);
     }
 
+    @GetMapping("/dto")
+    public ResponseEntity<List<EditoraDTO>> getAllEditorasDTO(){
+        return new ResponseEntity<>(editoraService.getAllEditorasDTO(), HttpStatus.OK);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Editora> getEditoraById(@PathVariable int id){
         Editora editora = editoraService.getEditoraById(id);
@@ -38,9 +44,24 @@ public class EditoraController {
         }
     }
 
+    @GetMapping("dto/{id}")
+    public ResponseEntity<EditoraDTO> getEditoraDTOById(@PathVariable int id){
+        EditoraDTO editoraDTO = editoraService.getEditoraDTOById(id);
+        if(editoraDTO != null){
+            return new ResponseEntity<>(editoraDTO, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(editoraDTO, HttpStatus.NOT_FOUND);
+        }
+    }
+
     @PostMapping
     public ResponseEntity<Editora> saveEditora(@RequestBody Editora editora) {
-        return new ResponseEntity<>(editoraService.saveEditora(editora), HttpStatus.OK);
+        return new ResponseEntity<>(editoraService.saveEditora(editora), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/dto")
+    public ResponseEntity<EditoraDTO> saveEditoraDTO(@RequestBody EditoraDTO editoraDTO) {
+        return new ResponseEntity<>(editoraService.saveEditoraDTO(editoraDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
@@ -54,7 +75,7 @@ public class EditoraController {
             if(editora == null){
                 return new ResponseEntity<>(editora, HttpStatus.NOT_FOUND);
             } else {
-            return new ResponseEntity<>(editoraService.deleteEditora(id), HttpStatus.OK);
+                return new ResponseEntity<>(editoraService.deleteEditora(id), HttpStatus.OK);
             }
         }    
 }
