@@ -16,6 +16,9 @@ import br.org.serratec.biblioteca.entity.Editora;
 public class EditoraService {
     @Autowired
     EditoraRepository editoraRepository;
+    
+    @Autowired
+    private ModelMapper modelMapper;
 
     public List<Editora> getAllEditoras(){
         return editoraRepository.findAll();
@@ -56,12 +59,11 @@ public class EditoraService {
 
     public EditoraDTO saveEditoraDTO(EditoraDTO editoraDTO){
         Editora editora = new Editora();
-        editora.setAllAtributos(editoraDTO);
-        
+        editora = converteDTOtoEntity(editoraDTO);
         Editora novaEditora = editoraRepository.save(editora); 
         EditoraDTO novaEditoraDTO = new EditoraDTO();
+        novaEditoraDTO = converteEntitytoDTO(novaEditora);
 
-        novaEditoraDTO.setAllAtributos(novaEditora);
         return novaEditoraDTO;
     }
 
@@ -75,14 +77,17 @@ public class EditoraService {
         editoraRepository.deleteById(id);
         return getEditoraById(id);
     }
-
-    @Autowired
-    private ModelMapper modelMapper;
     
     private EditoraDTO converteEntitytoDTO(Editora editora) {
         EditoraDTO editoraDTO = new EditoraDTO();
         editoraDTO = (modelMapper.map(editora, EditoraDTO.class));
         return editoraDTO;
+    }
+
+    private Editora converteDTOtoEntity(EditoraDTO editoraDTO) {
+        Editora editora = new Editora();
+        editora = (modelMapper.map(editoraDTO, Editora.class));
+        return editora;
     }
 }
  
