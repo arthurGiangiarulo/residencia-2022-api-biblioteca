@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.org.serratec.biblioteca.dto.LivroDTO;
 import br.org.serratec.biblioteca.entity.Livro;
 import br.org.serratec.biblioteca.service.LivroService;
 
@@ -43,9 +44,19 @@ public class LivroController {
         return new ResponseEntity<>(livroService.saveLivro(livro), HttpStatus.OK);
     }
 
+    @PostMapping("/dto/{id}")
+    public ResponseEntity<LivroDTO> saveLivroDTO(@RequestBody LivroDTO livroDTO) {
+        return new ResponseEntity<>(livroService.saveLivroDTO(livroDTO), HttpStatus.OK);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<Livro> updateLivro(@RequestBody Livro livro, @PathVariable int id) {
         return new ResponseEntity<>(livroService.updateLivro(livro, id), HttpStatus.OK);
+    }
+
+    @PutMapping("/dto/{id}")
+    public ResponseEntity<LivroDTO> updateLivroDTO(@RequestBody LivroDTO livroDTO, @PathVariable int id) {
+        return new ResponseEntity<>(livroService.updateLivroDTO(livroDTO, id), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

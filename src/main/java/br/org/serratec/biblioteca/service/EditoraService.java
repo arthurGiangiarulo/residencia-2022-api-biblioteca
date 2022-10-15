@@ -3,10 +3,9 @@ package br.org.serratec.biblioteca.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import br.org.serratec.biblioteca.repository.EditoraRepository;
 import br.org.serratec.biblioteca.dto.EditoraDTO;
@@ -16,9 +15,6 @@ import br.org.serratec.biblioteca.entity.Editora;
 public class EditoraService {
     @Autowired
     EditoraRepository editoraRepository;
-    
-    @Autowired
-    private ModelMapper modelMapper;
 
     public List<Editora> getAllEditoras(){
         return editoraRepository.findAll();
@@ -35,7 +31,7 @@ public class EditoraService {
         List<EditoraDTO> editoraDTO = new ArrayList<EditoraDTO>();
         editora = getAllEditoras();
         editora.forEach(edt -> {
-            editoraDTO.add(converteEntitytoDTO(edt));
+            editoraDTO.add(converteEditoraEntityToDTO(edt));
         });
         return editoraDTO;
     }
@@ -47,7 +43,7 @@ public class EditoraService {
     public EditoraDTO getEditoraDTOById(int id) {
         Editora editora = editoraRepository.findById(id).orElse(null);
         if(editora != null) {
-            return converteEntitytoDTO(editora);
+            return converteEditoraEntityToDTO(editora);
         } else {
             return null;
         }
@@ -58,19 +54,20 @@ public class EditoraService {
     }
 
     public EditoraDTO saveEditoraDTO(EditoraDTO editoraDTO){
-        Editora editora = new Editora();
-        editora = converteDTOtoEntity(editoraDTO);
-        Editora novaEditora = editoraRepository.save(editora); 
-        EditoraDTO novaEditoraDTO = new EditoraDTO();
-        novaEditoraDTO = converteEntitytoDTO(novaEditora);
-
-        return novaEditoraDTO;
+        return converteEditoraEntityToDTO(editoraRepository.save(converteEditoraDTOtoEntity(editoraDTO))); 
     }
 
     public Editora updateEditora(Editora editora, int id){
         Editora editoraExistenteNoBanco = getEditoraById(id);
-        editoraExistenteNoBanco.setAllAtributos(editora);
-        return editoraRepository.save(editoraExistenteNoBanco);
+        return editoraRepository.save(editoraExistenteNoBanco.setAllAtributos(editora));
+    }
+
+    @PutMapping("/dto/{id}")
+    public EditoraDTO updateEditoraDTO(EditoraDTO editoraDTO, int id){
+        if(getEditoraById(id) != null){
+            return converteEditoraEntityToDTO(editoraRepository.save(converteEditoraDTOtoEntity(editoraDTO)));
+        } return null;
+    //Corrigir a brecha que há quando o usuário preenche o id do JSON diferente do id do http. 
     }
 
     public Editora deleteEditora(int id){
@@ -78,15 +75,15 @@ public class EditoraService {
         return getEditoraById(id);
     }
     
-    private EditoraDTO converteEntitytoDTO(Editora editora) {
+    private EditoraDTO converteEditoraEntityToDTO(Editora editora) {
         EditoraDTO editoraDTO = new EditoraDTO();
-        editoraDTO = (modelMapper.map(editora, EditoraDTO.class));
+        editoraDTO.setAllAtributosFromEntidade(editora);
         return editoraDTO;
     }
 
-    private Editora converteDTOtoEntity(EditoraDTO editoraDTO) {
+    private Editora converteEditoraDTOtoEntity(EditoraDTO editoraDTO) {
         Editora editora = new Editora();
-        editora = (modelMapper.map(editoraDTO, Editora.class));
+        editora.setAllAtributosFromDTO(editoraDTO);
         return editora;
     }
 }

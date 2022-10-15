@@ -13,10 +13,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+import br.org.serratec.biblioteca.dto.LivroDTO;
 
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "codigoLivro")
 @Entity
@@ -113,5 +113,15 @@ public class Livro {
         this.setNomeAutor(livro.getNomeAutor());
         this.setNomeLivro(livro.getNomeLivro());
         return this;
+    }
+
+    public Livro setAllAtributosFromDTO (LivroDTO livroDTO){
+        this.setNomeLivro(livroDTO.getNomeLivro());
+        this.setNomeAutor(livroDTO.getNomeAutor());
+        this.setDataLancamento(livroDTO.getDataLancamento());
+        this.setCodigoIsbn(livroDTO.getCodigoIsbn());
+        // this.setEditora(livroDTO.getEditora());
+        // this.setEmprestimoDoLivro(livroDTO.getEmprestimosDoLivro());
+        return null; 
     }
 }

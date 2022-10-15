@@ -44,15 +44,15 @@ public class EditoraController {
         }
     }
 
-    @GetMapping("dto/{id}")
-    public ResponseEntity<EditoraDTO> getEditoraDTOById(@PathVariable int id){
-        EditoraDTO editoraDTO = editoraService.getEditoraDTOById(id);
-        if(editoraDTO != null){
-            return new ResponseEntity<>(editoraDTO, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(editoraDTO, HttpStatus.NOT_FOUND);
-        }
-    }
+    // @GetMapping("dto/{id}")
+    // public ResponseEntity<EditoraDTO> getEditoraDTOById(@PathVariable int id){
+    //     EditoraDTO editoraDTO = editora.converterParaEntidadeFromDTO(editoraService.getEditoraDTOById(id)) ;
+    //     if(editoraDTO != null){
+    //         return new ResponseEntity<>(editoraDTO, HttpStatus.OK);
+    //     } else {
+    //         return new ResponseEntity<>(editoraDTO, HttpStatus.NOT_FOUND);
+    //     }
+    // }
 
     @PostMapping
     public ResponseEntity<Editora> saveEditora(@RequestBody Editora editora) {
@@ -61,12 +61,21 @@ public class EditoraController {
 
     @PostMapping("/dto")
     public ResponseEntity<EditoraDTO> saveEditoraDTO(@RequestBody EditoraDTO editoraDTO) {
-        return new ResponseEntity<>(editoraService.saveEditoraDTO(editoraDTO), HttpStatus.CREATED);
+        if(editoraDTO != null){
+            return new ResponseEntity<>(editoraService.saveEditoraDTO(editoraDTO), HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>(editoraDTO, HttpStatus.NOT_FOUND);
+        }
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Editora> updateEditora(@RequestBody Editora editora, @PathVariable int id) {
         return new ResponseEntity<>(editoraService.updateEditora(editora, id), HttpStatus.OK);
+    }
+
+    @PutMapping("dto/{id}")
+    public ResponseEntity<EditoraDTO> updateEditoraDTO(@RequestBody EditoraDTO editoraDTO, @PathVariable int id) {
+        return new ResponseEntity<>(editoraService.updateEditoraDTO(editoraDTO, id), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

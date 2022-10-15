@@ -11,7 +11,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import br.org.serratec.biblioteca.dto.EditoraDTO;
@@ -58,10 +57,10 @@ public class Editora {
 
     public Editora setAllAtributos(Editora editora){
         this.setNome(editora.getNome());
-        return this;
+        return editora;
     }
 
-    public Editora setAllAtributos(EditoraDTO editoraDTO){
+    public Editora setAllAtributosFromDTO(EditoraDTO editoraDTO){
         this.setNome(editoraDTO.getNome());
         return this;
     }
