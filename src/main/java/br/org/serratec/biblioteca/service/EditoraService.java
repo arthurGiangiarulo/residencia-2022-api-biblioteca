@@ -1,13 +1,17 @@
 package br.org.serratec.biblioteca.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import br.org.serratec.biblioteca.repository.EditoraRepository;
 import br.org.serratec.biblioteca.repository.LivroRepository;
+import br.org.serratec.biblioteca.dto.ConsultaCNPJDTO;
 import br.org.serratec.biblioteca.dto.EditoraDTO;
 import br.org.serratec.biblioteca.dto.LivroDTO;
 import br.org.serratec.biblioteca.entity.Editora;
@@ -108,6 +112,18 @@ public class EditoraService {
         Editora editora = new Editora();
         editora.setAllAtributosFromDTO(editoraDTO);
         return editora;
+    }
+
+    public ConsultaCNPJDTO consultaCnpjApiExterna(String cnpj){
+        RestTemplate restTemplate = new RestTemplate();
+        String uri = "https://receitaws.com.br/v1/cnpj/{cnpj}";
+        
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("cnpj", cnpj);
+
+        ConsultaCNPJDTO consultaCnpjDTO = restTemplate.getForObject(uri, ConsultaCNPJDTO.class, params);
+
+        return consultaCnpjDTO;
     }
 }
  

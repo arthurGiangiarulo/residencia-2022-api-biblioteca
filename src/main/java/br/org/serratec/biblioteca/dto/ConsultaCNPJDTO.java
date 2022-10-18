@@ -11,7 +11,7 @@ public class ConsultaCNPJDTO {
     private String telefone;
     private String email;
     
-    //Getters and Setters
+    // Getters and Setters
     public String getSituacao() {
         return situacao;
     }

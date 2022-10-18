@@ -13,10 +13,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
+import br.org.serratec.biblioteca.dto.ConsultaCNPJDTO;
 import br.org.serratec.biblioteca.dto.EditoraDTO;
 import br.org.serratec.biblioteca.entity.Editora;
 import br.org.serratec.biblioteca.service.EditoraService;
+import io.micrometer.core.ipc.http.HttpSender;
 
 @RestController
 @RequestMapping("/editoras")
@@ -92,5 +95,32 @@ public class EditoraController {
                 return new ResponseEntity<>(editoraService.deleteEditora(id), HttpStatus.OK);
             }
         }    
+
+    // @GetMapping("/apiexterna/cnpj/{cnpj}")
+    // public ConsultaCNPJDTO consultaCnpjApiExterna(@PathVariable String cnpj){
+    //     return editoraService.consultaCnpjApiExterna(cnpj);
+    // }
+
+    @GetMapping("/apiexterna/cnpj/{cnpj}")
+    public ResponseEntity<ConsultaCNPJDTO> consultaCnpjApiExterna(@PathVariable String cnpj){
+        ConsultaCNPJDTO consultaCnpjDTO = editoraService.consultaCnpjApiExterna(cnpj);
+        if(consultaCnpjDTO != null){
+            return new ResponseEntity<>(consultaCnpjDTO, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(consultaCnpjDTO, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/apiexterna/cnpj/save/{cnpj}")
+    public ResponseEntity<EditoraDTO> salvaNomeApiExterna(@PathVariable String cnpj){
+        ConsultaCNPJDTO consultaCnpjDTO = editoraService.consultaCnpjApiExterna(cnpj);
+        EditoraDTO editoraDTO = new EditoraDTO();
+        if(consultaCnpjDTO != null){
+            editoraDTO.setNome(consultaCnpjDTO.getNome());
+            return new ResponseEntity<>(editoraService.saveEditoraDTO(editoraDTO), HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>(editoraDTO, HttpStatus.NOT_FOUND);
+        }
+    }
 }
 
