@@ -27,7 +27,6 @@ public class Editora {
     @Column(name = "nome")
     private String nome;
 
-    // @JsonManagedReference(value="editora-back")
     @OneToMany(mappedBy = "editora")
     private Set<Livro> livros;
 

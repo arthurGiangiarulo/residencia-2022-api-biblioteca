@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.org.serratec.biblioteca.repository.AlunoRepository;
+import br.org.serratec.biblioteca.dto.AlunoDTO;
 import br.org.serratec.biblioteca.entity.Aluno;
 
 @Service
@@ -35,5 +36,17 @@ public class AlunoService {
         alunoRepository.deleteById(id);
         return getAlunoById(id);
     }
+
+    // private AlunoDTO converteAlunoEntityToDTO(Aluno aluno) {
+    //     AlunoDTO alunoDTO = new AlunoDTO();
+    //     alunoDTO.setAllAtributosFromEntidade(aluno);
+    //     return alunoDTO;
+    // }
+
+    // private Aluno converteAlunoDTOtoEntity(AlunoDTO alunoDTO) {
+    //     Aluno aluno = new Aluno();
+    //     aluno.setAllAtributosFromDTO(alunoDTO);
+    //     return aluno;
+    // }
 }
  

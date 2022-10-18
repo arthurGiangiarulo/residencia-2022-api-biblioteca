@@ -5,16 +5,22 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PutMapping;
 
 import br.org.serratec.biblioteca.repository.EditoraRepository;
+import br.org.serratec.biblioteca.repository.LivroRepository;
 import br.org.serratec.biblioteca.dto.EditoraDTO;
+import br.org.serratec.biblioteca.dto.LivroDTO;
 import br.org.serratec.biblioteca.entity.Editora;
+import br.org.serratec.biblioteca.entity.Livro;
 
 @Service
 public class EditoraService {
     @Autowired
     EditoraRepository editoraRepository;
+    @Autowired
+    LivroRepository livroRepository;
+    @Autowired
+    LivroService livroService;
 
     public List<Editora> getAllEditoras(){
         return editoraRepository.findAll();
@@ -27,13 +33,32 @@ public class EditoraService {
     // }
 
     public List<EditoraDTO> getAllEditorasDTO() {
-        List<Editora> editora = new ArrayList<Editora>();
-        List<EditoraDTO> editoraDTO = new ArrayList<EditoraDTO>();
+        List<Editora> editora = new ArrayList<>();
+        List<EditoraDTO> editoraDTO = new ArrayList<>();
         editora = getAllEditoras();
         editora.forEach(edt -> {
             editoraDTO.add(converteEditoraEntityToDTO(edt));
         });
         return editoraDTO;
+    }
+
+    public List<EditoraDTO> getLivrosPorEditoraDTO(){
+        List<Editora> listaEditoras = getAllEditoras();
+        List<EditoraDTO> listaEditorasDTO = new ArrayList<>();
+        
+        for(Editora editora: listaEditoras){
+            List<Livro> listaLivros = livroRepository.findByEditora(editora);
+            EditoraDTO editoraDTO = converteEditoraEntityToDTO(editora);
+            List<LivroDTO> listaLivrosDTO = new ArrayList<>();
+            
+            for(Livro livro: listaLivros){
+                LivroDTO livroDTO = livroService.converteLivroEntityToDTO(livro);
+                listaLivrosDTO.add(livroDTO);
+            }
+            editoraDTO.setListaLivrosDTO(listaLivrosDTO);
+            listaEditorasDTO.add(editoraDTO);
+        }
+        return listaEditorasDTO;
     }
 
     public Editora getEditoraById(int id){
@@ -62,12 +87,10 @@ public class EditoraService {
         return editoraRepository.save(editoraExistenteNoBanco.setAllAtributos(editora));
     }
 
-    @PutMapping("/dto/{id}")
     public EditoraDTO updateEditoraDTO(EditoraDTO editoraDTO, int id){
         if(getEditoraById(id) != null){
             return converteEditoraEntityToDTO(editoraRepository.save(converteEditoraDTOtoEntity(editoraDTO)));
         } return null;
-    //Corrigir a brecha que há quando o usuário preenche o id do JSON diferente do id do http. 
     }
 
     public Editora deleteEditora(int id){
@@ -81,7 +104,7 @@ public class EditoraService {
         return editoraDTO;
     }
 
-    private Editora converteEditoraDTOtoEntity(EditoraDTO editoraDTO) {
+    public Editora converteEditoraDTOtoEntity(EditoraDTO editoraDTO) {
         Editora editora = new Editora();
         editora.setAllAtributosFromDTO(editoraDTO);
         return editora;

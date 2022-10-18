@@ -120,7 +120,7 @@ public class Livro {
         this.setNomeAutor(livroDTO.getNomeAutor());
         this.setDataLancamento(livroDTO.getDataLancamento());
         this.setCodigoIsbn(livroDTO.getCodigoIsbn());
-        // this.setEditora(livroDTO.getEditora());
+        // this.setEditora(livroDTO.getEditoraDTO());
         // this.setEmprestimoDoLivro(livroDTO.getEmprestimosDoLivro());
         return null; 
     }

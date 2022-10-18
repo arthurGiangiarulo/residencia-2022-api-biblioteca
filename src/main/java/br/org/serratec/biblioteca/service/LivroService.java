@@ -1,5 +1,6 @@
 package br.org.serratec.biblioteca.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,16 @@ public class LivroService {
 
     public List<Livro> getAllLivros(){
         return livroRepository.findAll();
+    }
+
+    public List<LivroDTO> getAllLivrosDTO(){
+        List<Livro> listaDeLivros = new ArrayList<Livro>();
+        List<LivroDTO> listaDeLivrosDTO = new ArrayList<LivroDTO>();
+        listaDeLivros = getAllLivros();
+        listaDeLivros.forEach(edt -> {
+            listaDeLivrosDTO.add(converteLivroEntityToDTO(edt));
+        });
+        return listaDeLivrosDTO;
     }
 
     public Livro getLivroById(int id){
@@ -40,7 +51,6 @@ public class LivroService {
         if(getLivroById(id) != null){
             return converteLivroEntityToDTO(livroRepository.save(converteLivroDTOtoEntity(livroDTO)));
         } return null;
-    //Corrigir a brecha que há quando o usuário preenche o id do JSON diferente do id do http. 
     }
 
     public Livro deleteLivro(int id){
@@ -48,13 +58,13 @@ public class LivroService {
         return getLivroById(id);
     }
 
-    private LivroDTO converteLivroEntityToDTO(Livro livro) {
+    public LivroDTO converteLivroEntityToDTO(Livro livro) {
         LivroDTO livroDTO = new LivroDTO();
         livroDTO.setAllAtributosFromEntidade(livro);
         return livroDTO;
     }
 
-    private Livro converteLivroDTOtoEntity(LivroDTO livroDTO) {
+    public Livro converteLivroDTOtoEntity(LivroDTO livroDTO) {
         Livro livro = new Livro();
         livro.setAllAtributosFromDTO(livroDTO);
         return livro;
