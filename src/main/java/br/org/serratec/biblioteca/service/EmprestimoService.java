@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.org.serratec.biblioteca.repository.EmprestimoRepository;
+import br.org.serratec.biblioteca.dto.EmprestimoDTO;
 import br.org.serratec.biblioteca.entity.Emprestimo;
 
 @Service
@@ -35,4 +36,16 @@ public class EmprestimoService {
         emprestimoRepository.deleteById(id);
         return getEmprestimoById(id);
     }
+
+    public EmprestimoDTO converteEmprestimoEntityToDTO(Emprestimo emprestimo) {
+        EmprestimoDTO emprestimoDTO = new EmprestimoDTO();
+        emprestimoDTO.setAllAtributosFromEntidade(emprestimo);
+        return emprestimoDTO;
+    }
+
+    // private Emprestimo converteEmprestimoDTOtoEntity(EmprestimoDTO emprestimoDTO) {
+    //     Emprestimo emprestimo = new Emprestimo();
+    //     emprestimo.setAllAtributosFromDTO(emprestimoDTO);
+    //     return emprestimo;
+    // }
 }

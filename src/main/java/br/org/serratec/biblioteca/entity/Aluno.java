@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -21,6 +22,7 @@ import br.org.serratec.biblioteca.dto.AlunoDTO;
 @Table(name = "alunos")
 public class Aluno {
     @Id
+    
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "numeromatriculaaluno")
     private int numeroMatriculaAluno;
@@ -129,15 +131,15 @@ public class Aluno {
     }
 
     public Aluno setAllAtributosFromDTO(AlunoDTO alunoDTO){
-        this.setBairro(alunoDTO.getBairro());
-        this.setCidade(alunoDTO.getCidade());
-        this.setComplemento(alunoDTO.getComplemento());
+        // this.setBairro(alunoDTO.getBairro());
+        // this.setCidade(alunoDTO.getCidade());
+        // this.setComplemento(alunoDTO.getComplemento());
         this.setCpf(alunoDTO.getCpf());
-        this.setDataNascimento(alunoDTO.getDataNascimento());
+        // this.setDataNascimento(alunoDTO.getDataNascimento());
         //this.emprestimosDoAluno(AlunoDTO.getEmprestimosDoAluno());
-        this.setLogradouro(alunoDTO.getLogradouro());
+        // this.setLogradouro(alunoDTO.getLogradouro());
         this.setNome(alunoDTO.getNome());
-        this.setNumeroLogradouro(alunoDTO.getNumeroLogradouro());
+        // this.setNumeroLogradouro(alunoDTO.getNumeroLogradouro());
         return this;
     }
 }

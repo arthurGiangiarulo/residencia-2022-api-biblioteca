@@ -99,4 +99,9 @@ public class Emprestimo {
         this.setLivro(emprestimo.getLivro());
         return this;
     }
+
+    // public Aluno setAllAtributosFromDTO(AlunoDTO alunoDTO){
+    //     // this.setNumeroLogradouro(alunoDTO.getNumeroLogradouro());
+    //     return this;
+    // }
 }

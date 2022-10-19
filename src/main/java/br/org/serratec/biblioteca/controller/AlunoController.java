@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.org.serratec.biblioteca.dto.AlunoDTO;
 import br.org.serratec.biblioteca.entity.Aluno;
 import br.org.serratec.biblioteca.service.AlunoService;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -38,6 +39,19 @@ public class AlunoController {
             return new ResponseEntity<>(aluno, HttpStatus.OK);
         }
         //return new ResponseEntity<>(alunoService.getAlunoById(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/emprestimos")
+    public ResponseEntity<List<AlunoDTO>> getEmprestimosPorAlunosDTO(){
+        return new ResponseEntity<>(alunoService.getEmprestimosPorAlunosDTO(), HttpStatus.OK);
+        
+        // Aluno aluno = alunoService.getAlunoById(id);
+        // if(aluno == null){
+        //     return new ResponseEntity<>(aluno, HttpStatus.NOT_FOUND);
+        // } else {
+        //     return new ResponseEntity<>(aluno, HttpStatus.OK);
+        // }
+        // return new ResponseEntity<>(alunoService.getAlunoById(id), HttpStatus.OK);
     }
 
     @PostMapping
