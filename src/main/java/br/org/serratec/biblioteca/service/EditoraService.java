@@ -25,6 +25,8 @@ public class EditoraService {
     LivroRepository livroRepository;
     @Autowired
     LivroService livroService;
+    @Autowired
+    EmailService emailService;
 
     public List<Editora> getAllEditoras(){
         return editoraRepository.findAll();
@@ -83,6 +85,7 @@ public class EditoraService {
     }
 
     public EditoraDTO saveEditoraDTO(EditoraDTO editoraDTO){
+        emailService.sendEmail("emaildogiango@gmail.com", "Teste API", editoraDTO.toString());
         return converteEditoraEntityToDTO(editoraRepository.save(converteEditoraDTOtoEntity(editoraDTO))); 
     }
 
