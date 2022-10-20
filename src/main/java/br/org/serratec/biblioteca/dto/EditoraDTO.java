@@ -7,6 +7,28 @@ import br.org.serratec.biblioteca.entity.Editora;
 public class EditoraDTO {
     private int codigoEditora;
     private String nome;
+    private String imagemNome;
+	private String imagemFileName;
+	private String imagemUrl;
+    
+    public String getImagemNome() {
+        return imagemNome;
+    }
+    public void setImagemNome(String imagemNome) {
+        this.imagemNome = imagemNome;
+    }
+    public String getImagemFileName() {
+        return imagemFileName;
+    }
+    public void setImagemFileName(String imagemFileName) {
+        this.imagemFileName = imagemFileName;
+    }
+    public String getImagemUrl() {
+        return imagemUrl;
+    }
+    public void setImagemUrl(String imagemUrl) {
+        this.imagemUrl = imagemUrl;
+    }
     private List<LivroDTO> listaLivrosDTO;
 
 //Getters and Setters
@@ -40,4 +62,10 @@ public class EditoraDTO {
         //this.setLivrosDTO(editora.getLivros());
         return this;
     }
+    @Override
+	public String toString() {
+		return "EditoraDTO [codigoEditora=" + codigoEditora + ", nome=" + nome + ", imagemNome=" + imagemNome
+				+ ", imagemFileName=" + imagemFileName + ", imagemUrl=" + imagemUrl + ", listaLivrosDTO="
+				+ listaLivrosDTO + "]";
+	}
 }
