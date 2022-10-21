@@ -2,6 +2,7 @@ package br.org.serratec.biblioteca.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,7 @@ import com.fasterxml.jackson.databind.ser.std.AsArraySerializerBase;
 import br.org.serratec.biblioteca.dto.ConsultaCNPJDTO;
 import br.org.serratec.biblioteca.dto.EditoraDTO;
 import br.org.serratec.biblioteca.entity.Editora;
+import br.org.serratec.biblioteca.exception.NoSuchElementFoundException;
 import br.org.serratec.biblioteca.service.EditoraService;
 import io.micrometer.core.ipc.http.HttpSender;
 import io.micrometer.core.ipc.http.HttpSender.Response;
@@ -49,15 +51,36 @@ public class EditoraController {
         return new ResponseEntity<>(editoraService.getLivrosPorEditoraDTO(), HttpStatus.OK);
     }
 
+    // @GetMapping("/{id}")
+    // public ResponseEntity<Editora> getEditoraById(@PathVariable int id){
+    //     Editora editora = editoraService.getEditoraById(id);
+    //     if(editora != null){
+    //         return new ResponseEntity<>(editora, HttpStatus.OK);
+    //     } else {
+    //         return new ResponseEntity<>(editora, HttpStatus.NOT_FOUND);
+    //     }
+    // }
+
     @GetMapping("/{id}")
     public ResponseEntity<Editora> getEditoraById(@PathVariable int id){
         Editora editora = editoraService.getEditoraById(id);
-        if(editora != null){
-            return new ResponseEntity<>(editora, HttpStatus.OK);
+        if(editora == null){
+            throw new NoSuchElementFoundException("Não foi encontrada editora com id " + id);
         } else {
-            return new ResponseEntity<>(editora, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(editora, HttpStatus.OK);
         }
     }
+
+    // @GetMapping("/id/{id}")
+    // public Editora getEditoraByIdTwo(@PathVariable int id){
+    //     Editora editora = editoraService.getEditoraById(id);
+    //     if(editora == null){
+    //         throw new NoSuchElementFoundException("Não foi encontrada editora com id " + id);
+    //     } else {
+    //         return new ResponseEntity<>(editora, HttpStatus.OK);
+    //     }
+        
+    // }
 
     // @GetMapping("dto/{id}")
     // public ResponseEntity<EditoraDTO> getEditoraDTOById(@PathVariable int id){
@@ -145,6 +168,25 @@ public ResponseEntity<EditoraDTO> saveEditoraComFoto(@RequestPart("editora") Str
    else
        return new ResponseEntity<>(editoraDTO, HttpStatus.CREATED);
 }
+
+@GetMapping("ex/{id}")
+	public ResponseEntity<Editora> getEditoraByIdThree(@PathVariable Integer id) {
+		Editora editora = new Editora();
+		
+		try {
+			editora = editoraService.getEditoraById(id);
+		}catch(Exception ex) {
+			throw new NoSuchElementFoundException("Não foi encontrada editora com o id "+id);
+		}
+		/*
+		if(livro == null)
+			//throw new NoSuchElementException("Não foi encontrado livro com o id "+id);
+			throw new NoSuchElementFoundException("Não foi encontrado livro com o id "+id);
+		else
+			return new ResponseEntity<>(livro, HttpStatus.OK);
+		*/
+		return new ResponseEntity<>(editora, HttpStatus.OK);
+	}
 
     //get image
     //update image

@@ -89,7 +89,8 @@ public class EditoraService {
     }
 
     public Editora getEditoraById(int id){
-        return editoraRepository.findById(id).orElse(null);
+        // return editoraRepository.findById(id).orElse(null);
+        return editoraRepository.findById(id).get();
     }
 
     public EditoraDTO getEditoraDTOById(int id) {
